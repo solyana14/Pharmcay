@@ -3,14 +3,15 @@ module.exports = (sequelize, DataTypes) => {
   const Pharmacy = sequelize.define('Pharmacy', {
     name:{
       type:  DataTypes.STRING,
-      validate:{
-        notNull:true,
-        notEmpty:true,
-        msg: "must enter phramacy name"
-      }
+      allowNull:false,
+      // validate:{
+      //  allowNull:false,
+      //   msg: "must enter phramacy name"
+      // }
     },
     phoneNumber:{
       type: DataTypes.INTEGER,
+      allowNull:false,
       validate:{
         isNumeric:true
       }

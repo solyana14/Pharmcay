@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha",
+    "pretest": "sequelize db:migrate",
+    "test": " mocha  --exit || sequelize db:migrate:undo:all",
+    "posttest": "sequelize db:migrate:undo:all",
     "start": "nodemon index.js"
   },
   "author": "",

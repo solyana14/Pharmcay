@@ -3,14 +3,15 @@ module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.createTable('Pharmacies', {
       id: {
-        allowNull: true,
+        allowNull: false,
         autoIncrement: true,
         primaryKey: true,
          type: Sequelize.INTEGER
       },
     
       name:{
-        type:Sequelize.STRING
+        type:Sequelize.STRING,
+        allowNull:false
       }
       ,
       phoneNumber:{
@@ -19,6 +20,10 @@ module.exports = {
       ,
       fax:{
         type: Sequelize.INTEGER
+      }
+      ,
+      address:{
+        type: Sequelize.STRING
       }
       ,
       createdAt: {
