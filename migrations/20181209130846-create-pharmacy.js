@@ -3,17 +3,24 @@ module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.createTable('Pharmacies', {
       id: {
-        allowNull: false,
+        allowNull: true,
         autoIncrement: true,
         primaryKey: true,
+         type: Sequelize.INTEGER
+      },
+    
+      name:{
+        type:Sequelize.STRING
+      }
+      ,
+      phoneNumber:{
+        type: Sequelize.INTEGER, 
+      }
+      ,
+      fax:{
         type: Sequelize.INTEGER
-      },
-      name: {
-        type: Sequelize.STRING
-      },
-      // expiryDate:{
-      //   type:Sequelize.DATE
-      // },
+      }
+      ,
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
