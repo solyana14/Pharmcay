@@ -8,28 +8,23 @@ module.exports = (sequelize, DataTypes) => {
       //  allowNull:false,
       //   msg: "must enter phramacy name"
       // }
+      //this is a custom validation
+      // validate: {
+      //   wrongPostalCode(value) {
+      //     if (this.country) {
+      //       if (!validator.isPostalCode(String(this.postalCode), this.country)) {
+      //         throw new Error('Wrong postal code');
+      //       }
+      //     }
+      //   }
+      // }
     },
-    phoneNumber:{
-      type: DataTypes.INTEGER,
-      allowNull:false,
-      validate:{
-        isNumeric:true
-      }
-    } ,
-    address:{
-      type: DataTypes.STRING , //may need to remover this as a seprate model something to think about
-      validate:{
-
-      }
-    } ,
-    fax: {
-      type: DataTypes.INTEGER,
-      validate:{
-        isNumeric:{
-          args: true,
-          msg:"must enter an integer as phone number"
-        }
-      }
+   
+    description: {
+      type: DataTypes.STRING,
+      // validate:{
+        
+      // }
     }
   }, {});
   Pharmacy.associate = function(models) {

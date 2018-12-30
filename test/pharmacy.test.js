@@ -9,17 +9,13 @@ describe('Pharmacy', ()=>{
         .post('/pharmacy/create')
         .send({
             "name":"this is a name",
-            "phoneNumber":"12344",
-            "fax":"34567",
-            "address": 'welosefer'
+            "description":"this is the description",
         })
         .end((err,res)=>{
             console.log(res.body)
             res.should.have.status(200)
             res.body.should.have.property('name')
-            res.body.should.have.property('phoneNumber')
-            res.body.should.have.property('fax')
-            res.body.should.have.property('address')
+            res.body.should.have.property('description')
             done()
         })
     })
@@ -28,58 +24,53 @@ describe('Pharmacy', ()=>{
         chai.request(app)
         .post('/pharmacy/create')
         .send({
-            "phoneNumber":"2345",
-            "fax":"34567",
-            "address": 'welosefer'
+            "description":"werty",
         })
         .end((err,res)=>{
             console.log(res.body)
            res.should.have.status(400)
             res.body.should.have.property('errors')
             res.body.errors[0].should.have.property('message')
-            // res.body.should.have.property('fax')
-            // res.body.should.have.property('address')
+           
             done()
         })
     })
 
-    it('should be not create/register a Pharmacy with an invalid phoneNumber',(done)=>{
-        chai.request(app)
-        .post('/pharmacy/create')
-        .send({
-            "name": "test",
-            "phoneNumber":"abcd2345",
-            "fax":"34567",
-            "address": 'welosefer'
-        })
-        .end((err,res)=>{
-            console.log(res.body)
-           res.should.have.status(400)
-            res.body.should.have.property('errors')
-            res.body.errors[0].should.have.property('message')
-            // res.body.should.have.property('fax')
-            // res.body.should.have.property('address')
-            done()
-        })
-    })
+    // it('should be not create/register a Pharmacy with an invalid phoneNumber',(done)=>{
+    //     chai.request(app)
+    //     .post('/pharmacy/create')
+    //     .send({
+    //         "name": "test",
+    //         "phoneNumber":"abcd2345",
+    //         "fax":"34567",
+    //         "address": 'welosefer'
+    //     })
+    //     .end((err,res)=>{
+    //         // console.log(res.body)
+    //        res.should.have.status(400)
+    //         res.body.should.have.property('errors')
+    //         res.body.errors[0].should.have.property('message')
+            
+    //         done()
+    //     })
+    // })
 
-    it('should be not create/register a Pharmacy with an invalid fax number',(done)=>{
-        chai.request(app)
-        .post('/pharmacy/create')
-        .send({
-            "name": "test",
-            "phoneNumber":"2345",
-            "fax":"34567sss",
-            "address": 'welosefer'
-        })
-        .end((err,res)=>{
-            console.log(res.body)
-           res.should.have.status(400)
-            res.body.should.have.property('errors')
-            res.body.errors[0].should.have.property('message')
-            // res.body.should.have.property('fax')
-            // res.body.should.have.property('address')
-            done()
-        })
-    })
+    // it('should be not create/register a Pharmacy with an invalid fax number',(done)=>{
+    //     chai.request(app)
+    //     .post('/pharmacy/create')
+    //     .send({
+    //         "name": "test",
+    //         "phoneNumber":"2345",
+    //         "fax":"34567sss",
+    //         "address": 'welosefer'
+    //     })
+    //     .end((err,res)=>{
+    //         // console.log(res.body)
+    //        res.should.have.status(400)
+    //         res.body.should.have.property('errors')
+    //         res.body.errors[0].should.have.property('message')
+          
+    //         done()
+    //     })
+    // })
 })
