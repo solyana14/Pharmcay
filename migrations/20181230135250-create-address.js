@@ -1,12 +1,14 @@
+const uuid = require('uuid/v4')
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.createTable('Addresses', {
-      id: {
+      addrId: {
         allowNull: false,
-        autoIncrement: true,
+       // autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.UUID,
+       // defaultValue: uuid()
       },
       city: {
         type: Sequelize.STRING

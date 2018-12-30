@@ -1,6 +1,11 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const Address = sequelize.define('Address', {
+    addrId: {
+      type: DataTypes.UUID,
+      primaryKey: true,
+      defaultValue: DataTypes.UUIDV4
+    },
     city: DataTypes.STRING,
     lattitude: {
       type: DataTypes.FLOAT,
@@ -41,15 +46,15 @@ module.exports = (sequelize, DataTypes) => {
 
   }, {
     validate:{
-      // bothCoordsOrNone() {
-      //   if ((this.lattitude === null) !== (this.longitude === null)) {
-      //     throw new Error('Require either both latitude and longitude or neither')
-      //   }
-      // }
+    
     }
   });
+  // Address.beforeCreate((addr,_)=>{
+  //   return addr.id =uuid()
+  // })
   Address.associate = function(models) {
     // associations can be defined here
   };
+ 
   return Address;
 };

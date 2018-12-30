@@ -19,7 +19,7 @@ pharmacyRouter
 //this is a test route for testing
 .post('/test',(req,res)=>{
     // res.status(200).send('this is a pharmacy route')
-    console.log(Date.now())
+
     Address.create({
         city:req.body.city,
         longitude: req.body.longitude,
