@@ -1,11 +1,12 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const Address = sequelize.define('Address', {
-    addrId: {
-      type: DataTypes.UUID,
-      primaryKey: true,
-      defaultValue: DataTypes.UUIDV4
-    },
+    // addrId: {
+    //  // type: DataTypes.UUID,
+    //   primaryKey: true,
+    //   type: DataTypes.INTEGER
+    //  // defaultValue: DataTypes.UUIDV4
+    // },
     city: DataTypes.STRING,
     lattitude: {
       type: DataTypes.FLOAT,
@@ -54,6 +55,7 @@ module.exports = (sequelize, DataTypes) => {
   // })
   Address.associate = function(models) {
     // associations can be defined here
+    Address.belongsTo(models.Pharmacy, { foreignKey: "PharmacyId"})
   };
  
   return Address;

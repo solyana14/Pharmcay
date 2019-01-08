@@ -1,7 +1,7 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const app = express();
-const pharmacyRouter = require('./routes/pharmacy')
+const pharmacyRouter = require('./routes/./pharmacy/pharmacy')
 let PORT = process.env.PORT
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
