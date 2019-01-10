@@ -4,6 +4,7 @@ const Address = require('../../models').Address
 // let test = require('../../models')
 let pharmacyRouter = express.Router();
 let testPharma ;
+const verifyToken = require('../auth/VerifyTokens')
 pharmacyRouter
 //register a pharmacy with a medicen 
 .post('/create',(req,res)=>{
@@ -57,7 +58,7 @@ pharmacyRouter
         res.status(400).send(err)
     })
 })
-.get('/allPharmacy', (req,res)=>{
+.get('/allPharmacy',verifyToken, (req,res)=>{
     Pharmacy.findAll(
         {include: [{ all: true, nested: true }]}
         )

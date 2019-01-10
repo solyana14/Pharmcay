@@ -6,7 +6,8 @@ let PORT = process.env.PORT
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use('/pharmacy', pharmacyRouter)
-
+const AuthController = require('./routes/auth/AuthController');
+app.use('/api/auth', AuthController);
 app.get('/',(req,res)=>{
     res.send('hello from tttt')
 })
