@@ -1,6 +1,7 @@
 const express = require('express')
 const Pharmacy = require('../../models').Pharmacy
 const Address = require('../../models').Address
+const Medicine = require('../../models').Medicine
 // let test = require('../../models')
 let pharmacyRouter = express.Router();
 let testPharma ;
@@ -66,6 +67,21 @@ pharmacyRouter
         res.status(200).send(pharmacy)
     }).catch(err=>{
         res.status(400).send(err)
+    })
+})
+.post('/medicine',(req,res)=>{
+    Medicine.create({
+        name:"ibuprofen",
+        price: 15.50,
+        quantity: 40,
+        dosage: 500
+    }).then(med=>{
+        res.status(200).send(med)
+    })
+})
+.get('/medicine',(req,res)=>{
+    Medicine.findAll().then(med=>{
+        res.status(200).send(med)
     })
 })
 module.exports = pharmacyRouter
