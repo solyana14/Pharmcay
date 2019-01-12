@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   Catagory.associate = function(models) {
     // associations can be defined here
-    Catagory.hasMany(models.Medicine)
+    Catagory.hasMany(models.Medicine,{foreignKey: "CatagoryName", targetKey: 'name'})
   };
   return Catagory;
 };

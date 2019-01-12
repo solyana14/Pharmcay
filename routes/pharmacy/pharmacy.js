@@ -3,6 +3,7 @@ const Pharmacy = require('../../models').Pharmacy
 const Address = require('../../models').Address
 const Medicine = require('../../models').Medicine
 // let test = require('../../models')
+const capitalize = require('../../functions/capitalize')
 let pharmacyRouter = express.Router();
 let testPharma ;
 const verifyToken = require('../auth/VerifyTokens')
@@ -74,13 +75,15 @@ pharmacyRouter
         name:"ibuprofen",
         price: 15.50,
         quantity: 40,
-        dosage: 500
+        dosage: 500,
+        CatagoryName:capitalize("Analgesics"),
+        TypeName: capitalize("liquid")
     }).then(med=>{
         res.status(200).send(med)
     })
 })
 .get('/medicine',(req,res)=>{
-    Medicine.findAll().then(med=>{
+    Medicine.findAll( {include: [{ all: true, nested: true }]}).then(med=>{
         res.status(200).send(med)
     })
 })

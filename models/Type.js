@@ -1,11 +1,14 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const Type = sequelize.define('Type', {
-    name: DataTypes.STRING
+    name: {
+      type: DataTypes.STRING,
+      unique:true
+    }
   }, {});
   Type.associate = function(models) {
     // associations can be defined here
-    Type.hasMany(models.Medicine)
+    Type.hasMany(models.Medicine,{foreignKey: "TypeName", targetKey: 'name'})
   };
   return Type;
 };

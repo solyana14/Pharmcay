@@ -113,7 +113,7 @@ module.exports = (sequelize, DataTypes) => {
   Medicine.associate = function(models) {
     // associations can be defined here
     Medicine.belongsTo(models.Catagory,{ foreignKey: "CatagoryName", targetKey: 'name'})
-    Medicine.belongsTo(models.Type,{ foreignKey: "TypeId"})
+    Medicine.belongsTo(models.Type,{ foreignKey: "TypeName",targetKey:'name'})
     Medicine.belongsTo(models.Manufacturer,{ foreignKey: "ManufacturerId"})
   };
   return Medicine;

@@ -110,8 +110,8 @@ module.exports = {
       CatagoryName:{
         type:Sequelize.STRING
       },
-      TypeId:{
-        type:Sequelize.INTEGER
+      TypeName:{
+        type:Sequelize.STRING
       },
       ManufacturerId:{
         type:Sequelize.INTEGER
