@@ -14,7 +14,7 @@ module.exports = {
     */
    return queryInterface.bulkInsert('Types',[
      {name: "Preparations"},{name:"Liquid"},{name:"Tablet"},
-     {name: "Caplsul"},{name:"Drops"},{name:"Inhalers"},
+     {name: "Capsul"},{name:"Drops"},{name:"Inhalers"},
      {name: "Injection"},{name:"Implant"},{name:"Ointment"},
      {name: "Suppository"},{name:"Buccal"}
     ])

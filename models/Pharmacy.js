@@ -43,10 +43,10 @@ module.exports = (sequelize, DataTypes) => {
       allowNull:false,
       validate:{
         notEmpty:true,
-        len: { 
-          args: [7, 42],
-          msg: "The password length should be between 7 and 42 characters."
-       }
+      ///  len: { 
+          //args: [7, 42],
+        //  msg: "The password length should be between 7 and 42 characters."
+      // }
       }
     },
     description: {
@@ -59,7 +59,7 @@ module.exports = (sequelize, DataTypes) => {
   Pharmacy.associate = function(models) {
     // associations can be defined here
     Pharmacy.hasMany(models.Address)
-    Pharmacy.belongsToMany(models.Medicine,{through:"Pharmacy_Medicines",foreignKey:"PharmacyId", otherKey:"MedicineId"})
+    Pharmacy.hasMany(models.Medicine,{foreignKey:"PharmacyId"})
 
   };
   return Pharmacy;

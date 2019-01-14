@@ -113,9 +113,12 @@ module.exports = {
       TypeName:{
         type:Sequelize.STRING
       },
-      ManufacturerId:{
-        type:Sequelize.INTEGER
+      ManufacturerName:{
+        type:Sequelize.STRING
 
+      },
+      PharmacyId:{
+        type:Sequelize.INTEGER
       }
       ,
       createdAt: {

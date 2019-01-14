@@ -7,23 +7,30 @@ const Manufacturer = require('../../models').Manufacturer
 // let test = require('../../models')
 const capitalize = require('../../functions/capitalize')
 let userRouter = express.Router();
-
+//{include: [{ all: true, nested: true }]}
 userRouter
 //search for a pharmacy
-.post('/getMedicine',(req,res)=>{
+.post('/searchMedicine',(req,res)=>{
     Medicine.findAll(
-    {include: [{ all: true, nested: true }]},{where:{
+    {include: [{model:Manufacturer},
+        { model: Pharmacy,attributes:['id','name','description'],include:[{
+            model:Address
+        },
+  ]}
+    ]},{where:{
         name: req.body.name,
         dosage: req.body.dosage
     }}
     ).then(medicine=>{
         res.status(200).send(medicine)
+    }).catch(err=>{
+        res.status(404).send(err)
     })
     
 })  
-.get('/getPharmacy/1',(req,res)=>{
+.get('/getPharmacy/:id',(req,res)=>{
     Pharmacy.findOne(
-    {include: [{ all: true, nested: true }]},{where:{
+    {attributes:['id','name','description'],include: [{ model:Address },]},{where:{
         id: req.params.id
     }}
     ).then(pharmacy=>{

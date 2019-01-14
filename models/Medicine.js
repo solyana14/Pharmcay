@@ -113,10 +113,11 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   Medicine.associate = function(models) {
     // associations can be defined here
+    //target-of foriegn key     //source-of foriegn key
     Medicine.belongsTo(models.Catagory,{ foreignKey: "CatagoryName", targetKey: 'name'})
     Medicine.belongsTo(models.Type,{ foreignKey: "TypeName",targetKey:'name'})
-    Medicine.belongsTo(models.Manufacturer,{ foreignKey: "ManufacturerId"})
-    Medicine.belongsToMany(models.Pharmacy,{through:"Pharmacy_Medicines",foreignKey:"MedicineId", otherKey:"PharmacyId"})
+    Medicine.belongsTo(models.Manufacturer,{ foreignKey: "ManufacturerName",targetKey:'name'})
+    Medicine.belongsTo(models.Pharmacy,{foreignKey:"PharmacyId"})
   };
   return Medicine;
 };

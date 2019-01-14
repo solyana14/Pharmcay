@@ -13,12 +13,21 @@ router.use(bodyParser.json());
 //register a pharmacy
 router
 .post('/register',(req,res)=>{
-    //var hashedPassword = bcrypt.hashSync(req.body.password, 8);
+    var hashedPassword = bcrypt.hashSync(req.body.password, 8);
     Pharmacy.create({
         name:req.body.name,
         description: req.body.description,
         username: req.body.username,
-        password: req.body.password
+        password:hashedPassword,
+        Addresses:[
+            {
+                city:req.body.city,
+                longitude: req.body.longitude,
+                lattitude: req.body.lattitude,
+            }
+        ]
+    },{
+        include:[Address]
     }).then(pharmacy=>{
        //here create the token
         let token = jwt.sign(
@@ -39,12 +48,13 @@ router
         if(!pharmacy){
             res.status(401).send("No pharmacy with username")
         }else{
-              //var passwordIsValid = bcrypt.compareSync(req.body.password, user.password);
+              var passwordIsValid = bcrypt.compareSync(req.body.password, user.password);
    // if (!passwordIsValid) return res.status(401).send({ auth: false, token: null });
-    if(pharmacy.password === req.body.password){
+    //if(pharmacy.password === req.body.password){
+        if (passwordIsValid){
         var token = jwt.sign(
             {id:pharmacy.id},process.env.SECRET,{expiresIn:86400})
-        res.status(200).send({auth:true,token:token})
+        res.status(200).send({auth:true,token:token,pharmacy:pharmacy})
     }else{
         res.status(401).send("Password incorrect")
     }
