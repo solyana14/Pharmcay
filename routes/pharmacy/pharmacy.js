@@ -13,16 +13,16 @@ const verifyToken = require('../auth/VerifyTokens')
 pharmacyRouter
 //register a pharmacy 
 
-// .get('/allPharmacy', verifyToken,(req,res)=>{
-//     Pharmacy.findAll(
-//         {include: [{ all: true, nested: true }]}
-//         )
-//     .then(pharmacy=>{
-//         res.status(200).send(pharmacy)
-//     }).catch(err=>{
-//         res.status(400).send(err)
-//     })
-// })
+.get('/allPharmacy',(req,res)=>{
+    Pharmacy.findAll(
+        {include: [{ all: true, nested: true }]}
+        )
+    .then(pharmacy=>{
+        res.status(200).send(pharmacy)
+    }).catch(err=>{
+        res.status(400).send(err)
+    })
+})
 //updating a medicine affects all pharmacies having reference to this
 .patch('/updateMedicine/:id',verifyToken,(req,res)=>{
     let updates = req.body.updates
@@ -36,25 +36,27 @@ pharmacyRouter
 
 //add/register a medicine to a pharmacy
 .post('/addMedicine/:id',verifyToken,(req,res)=>{
-    
-   Medicine.findOne({where:{
-    name: medicines.name,
-    dosage:medicines.dosage,
-     ManufacturerName: medicines.Manufacturer.name
+   console.log(req.body)
+   Medicine.findAll({where:{
+    name: req.body.name,
+    dosage:req.body.dosage,
+     ManufacturerName: req.body.Manufacturer.name
    }}).then(result=>{
-       //console.log(result)
        //res.send(result)
-       if(isEmpty(result)){
+     //  console.log(result.length ===0)
+       //isEmpty(result)
+       if(result.length ===0){
         return  Medicine.create({
-            name: medicines.name,
-        dosage:medicines.dosage,
-        CatagoryName:_.startCase(_.toLower(medicines.CatagoryName)),
-        TypeName:_.startCase(_.toLower(medicines.TypeName)),
+            name: req.body.name,
+        dosage:req.body.dosage,
+        CatagoryName:_.startCase(_.toLower(req.body.CatagoryName)),
+        TypeName:_.startCase(_.toLower(req.body.TypeName)),
         PharmacyId:req.params.id,
-        price:medicines.price,
+        price:req.body.price,
+        quantity: req.body.quantity,
         Manufacturer: {
-                name: medicines.Manufacturer.name,
-                description: medicines.Manufacturer.description
+                name: req.body.Manufacturer.name,
+                description: req.body.Manufacturer.description
             }
         },{
             include:[Manufacturer]
@@ -65,8 +67,9 @@ pharmacyRouter
        }
    }).then(newMedicine=>{
        res.status(200).send(newMedicine)
-   }).catch(err=>{
-       res.status(500).send(err)
+   })
+   .catch(err=>{
+       res.status(404).send(err)
    })
    
   

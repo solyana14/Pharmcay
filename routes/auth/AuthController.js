@@ -44,24 +44,22 @@ router
     console.log(req.body)
     Pharmacy.findOne({where:{username:req.body.username}})
     .then(pharmacy=>{
-       
+       //console.log(pharmacy)
         if(!pharmacy){
             res.status(401).send("No pharmacy with username")
         }else{
-              var passwordIsValid = bcrypt.compareSync(req.body.password, user.password);
-   // if (!passwordIsValid) return res.status(401).send({ auth: false, token: null });
-    //if(pharmacy.password === req.body.password){
-        if (passwordIsValid){
-        var token = jwt.sign(
-            {id:pharmacy.id},process.env.SECRET,{expiresIn:86400})
-        res.status(200).send({auth:true,token:token,pharmacy:pharmacy})
-    }else{
-        res.status(401).send("Password incorrect")
-    }
+              var passwordIsValid = bcrypt.compareSync(req.body.password, pharmacy.password);
+                if(!passwordIsValid){
+                    res.status(401).send("Password incorrect")
+                }else{
+                    var token = jwt.sign(
+                        {id:pharmacy.id},process.env.SECRET,{expiresIn:86400})
+                    res.status(200).send({auth:true,token:token,pharmacy:pharmacy})
+                }
         }
       
     }).catch(err=>{
-        res.status(404).send("Error or server")
+        res.status(404).send(err)
     })
     
 })

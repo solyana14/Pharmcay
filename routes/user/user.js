@@ -11,13 +11,14 @@ let userRouter = express.Router();
 userRouter
 //search for a pharmacy
 .post('/searchMedicine',(req,res)=>{
+    console.log(req.body)
     Medicine.findAll(
     {include: [{model:Manufacturer},
         { model: Pharmacy,attributes:['id','name','description'],include:[{
             model:Address
         },
   ]}
-    ]},{where:{
+    ], where:{
         name: req.body.name,
         dosage: req.body.dosage
     }}
@@ -30,7 +31,7 @@ userRouter
 })  
 .get('/getPharmacy/:id',(req,res)=>{
     Pharmacy.findOne(
-    {attributes:['id','name','description'],include: [{ model:Address },]},{where:{
+    {attributes:['id','name','description'],include: [{ model:Address },],where:{
         id: req.params.id
     }}
     ).then(pharmacy=>{
