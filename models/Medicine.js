@@ -2,15 +2,16 @@
 module.exports = (sequelize, DataTypes) => {
   const Medicine = sequelize.define('Medicine', {
     name: DataTypes.STRING,
-    price:{
-      type: DataTypes.FLOAT,
-      validate:{
-        min:{
-          args:[0.0],
-          msg: "price can't be less than 0"
-        }
-      }
-    },
+    // price:{
+    //   type: DataTypes.FLOAT,
+    //   validate:{
+    //     min:{
+    //       args:[0.0],
+    //       msg: "price can't be less than 0"
+    //     }
+    //   }
+    // }
+    //,
     quantity:{
       type: DataTypes.INTEGER,
       validate:{
@@ -115,6 +116,7 @@ module.exports = (sequelize, DataTypes) => {
     Medicine.belongsTo(models.Catagory,{ foreignKey: "CatagoryName", targetKey: 'name'})
     Medicine.belongsTo(models.Type,{ foreignKey: "TypeName",targetKey:'name'})
     Medicine.belongsTo(models.Manufacturer,{ foreignKey: "ManufacturerId"})
+    Medicine.belongsToMany(models.Pharmacy,{through:"Pharmacy_Medicines",foreignKey:"MedicineId", otherKey:"PharmacyId"})
   };
   return Medicine;
 };

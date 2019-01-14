@@ -59,6 +59,8 @@ module.exports = (sequelize, DataTypes) => {
   Pharmacy.associate = function(models) {
     // associations can be defined here
     Pharmacy.hasMany(models.Address)
+    Pharmacy.belongsToMany(models.Medicine,{through:"Pharmacy_Medicines",foreignKey:"PharmacyId", otherKey:"MedicineId"})
+
   };
   return Pharmacy;
 };
